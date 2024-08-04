@@ -1,15 +1,12 @@
 import asyncio
-import os
-from dotenv import load_dotenv, find_dotenv
 import contextlib
 from aiogram.types import ChatJoinRequest
 from aiogram import Bot, Dispatcher, F
 import logging
 
-load_dotenv(find_dotenv())
-
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-CHANNEL_ID = os.getenv('CHANNEL_ID')
+BOT_TOKEN = '7221014149:AAEoUo1LxEfmCE6C1meZoVMfkZeLduCKgbg'
+CHANNEL_ID = -1001996706005
+ADMIN_ID = 6286994381
 
 
 async def approve_request(chat_join: ChatJoinRequest, bot: Bot):
