@@ -3,10 +3,20 @@ import contextlib
 from aiogram.types import ChatJoinRequest
 from aiogram import Bot, Dispatcher, F
 import logging
+from dotenv import load_dotenv, find_dotenv
+import os
 
-BOT_TOKEN = '7221014149:AAEoUo1LxEfmCE6C1meZoVMfkZeLduCKgbg'
-CHANNEL_ID = -1001996706005
-ADMIN_ID = 6286994381
+# Try to load environment variables from .env file
+dotenv_path = find_dotenv()
+if not dotenv_path:
+    logging.warning(".env file not found")
+else:
+    load_dotenv(dotenv_path)
+
+# Fetch the sensitive information from environment variables with default values
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
 
 async def approve_request(chat_join: ChatJoinRequest, bot: Bot):
@@ -22,7 +32,7 @@ async def start():
                         format="%(asctime)s - [%(levelname)s] - %(name)s - "
                                "(%(filename)s).%(funcName)s(%(lineno)d) - %(message)s"
                         )
-    bot: Bot = Bot(token=BOT_TOKEN)
+    bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
     dp.chat_join_request.register(approve_request, F.chat.id == CHANNEL_ID)
 
